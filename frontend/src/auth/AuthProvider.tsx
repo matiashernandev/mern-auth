@@ -9,7 +9,7 @@ interface IAuthProviderProps {
 }
 
 export default function AuthProvider({ children }: IAuthProviderProps) {
-  const [isAuthenticated] = useState(true)
+  const [isAuthenticated] = useState(false)
 
   return (
     <AuthContext.Provider value={{ isAuthenticated }}>
