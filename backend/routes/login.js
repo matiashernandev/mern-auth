@@ -1,6 +1,7 @@
 import { Router } from "express";
 import jsonResponse from "../lib/jsonResponse.js";
 import User from '../schema/user.js'
+import { getUserInfo } from "../lib/getUserInfo.js";
 
 const router = Router()
 
@@ -21,11 +22,11 @@ router.post("/", async (req, res) => {
     if (correctPassword) {
 
 
-      const accessToken = "access_token"
-      const refreshToken = "refresh_token"
+      const accessToken = user.createAccessToken()
+      const refreshToken = await user.createRefreshToken()
 
 
-      res.status(200).json(jsonResponse(200, { user, accessToken, refreshToken }))
+      res.status(200).json(jsonResponse(200, { user: getUserInfo(user), accessToken, refreshToken }))
     } else {
 
       res.status(400).json(
