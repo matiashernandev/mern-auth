@@ -35,7 +35,7 @@ UserSchema.methods.usernameExist = async function (username) {
   return !!result
 }
 
-UserSchema.methods.coparePassword = async function (password, hash) {
+UserSchema.methods.comparePassword = async function (password, hash) {
 
   const same = await bcrypt.compare(password, hash)
   return same

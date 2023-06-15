@@ -1,9 +1,10 @@
 import { Router } from "express";
 import jsonResponse from "../lib/jsonResponse.js";
+import User from '../schema/user.js'
 
 const router = Router()
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const { username, password } = req.body
 
   if (!!!username || !!!password) {
@@ -12,16 +13,40 @@ router.post("/", (req, res) => {
     }))
   }
 
+  const user = await User.findOne({ username })
 
-  const accessToken = "access_token"
-  const refreshToken = "refresh_token"
-  const user = {
-    id: "1",
-    name: "John",
-    username: "XXXX"
+  if (user) {
+    const correctPassword = await user.comparePassword(password, user.password)
+
+    if (correctPassword) {
+
+
+      const accessToken = "access_token"
+      const refreshToken = "refresh_token"
+
+
+      res.status(200).json(jsonResponse(200, { user, accessToken, refreshToken }))
+    } else {
+
+      res.status(400).json(
+        jsonResponse(400, {
+          error: "User or password incorrect"
+        })
+      )
+    }
+
+  } else {
+    res.status(400).json(
+      jsonResponse(400, {
+        error: "User not found"
+      })
+    )
   }
 
-  res.status(200).json(jsonResponse(200, { user, accessToken, refreshToken }))
+
+
+
+
 })
 
 
