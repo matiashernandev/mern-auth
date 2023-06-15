@@ -17,7 +17,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.use("/api/signup", signoutRouter)
+app.use("/api/signout", signoutRouter)
 app.use('/api/signup', signupRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/refresh-token', refreshTokenRouter);

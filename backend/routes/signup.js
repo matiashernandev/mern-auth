@@ -12,6 +12,8 @@ router.post("/", (req, res) => {
     }))
   }
 
+
+
   res.status(200).json(jsonResponse(200, { message: "User created successfully" }))
 
 })
