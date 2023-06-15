@@ -15,7 +15,7 @@ export default function DefaultLayout({ children }: IDefaultLayout) {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/singup">Singup</Link>
+              <Link to="/signup">Signup</Link>
             </li>
           </ul>
         </nav>
