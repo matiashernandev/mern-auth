@@ -9,6 +9,7 @@ import signoutRouter from './routes/signout.js';
 import signupRouter from './routes/signup.js';
 import userRouter from './routes/user.js';
 import todosRouter from './routes/todos.js';
+import { authenticateToken } from './auth/authenticate.js';
 
 config()
 
@@ -29,8 +30,8 @@ app.use("/api/signout", signoutRouter)
 app.use('/api/signup', signupRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/refresh-token', refreshTokenRouter);
-app.use('/api/user', userRouter);
-app.use('/api/todos', todosRouter);
+app.use('/api/user', authenticateToken, userRouter);
+app.use('/api/todos', authenticateToken, todosRouter);
 
 app.get("/", (req, res) => {
   res.send("Sarasa")

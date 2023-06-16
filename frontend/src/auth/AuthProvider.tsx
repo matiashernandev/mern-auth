@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { createContext, useContext, useEffect, useState } from "react"
 import { type User, type AccessTokenResponse, type AuthResponse } from "../types/types"
@@ -7,7 +9,8 @@ const AuthContext = createContext({
   isAuthenticated: false,
   getAccessToken: () => { },
   saveUser: (userData: AuthResponse) => { },
-  getRefreshToken: () => { }
+  getRefreshToken: () => { },
+  getUser: () => ({} as User | undefined)
 })
 
 interface IAuthProviderProps {
@@ -19,7 +22,9 @@ export default function AuthProvider({ children }: IAuthProviderProps) {
   const [accessToken, setAccessToken] = useState<string>("")
   const [user, setUser] = useState<User>()
 
-  useEffect(() => { }, [])
+  useEffect(() => {
+    checkAuth()
+  }, [])
 
   async function requestNewAccessToken(refreshToken: string) {
     try {
@@ -67,7 +72,7 @@ export default function AuthProvider({ children }: IAuthProviderProps) {
           throw new Error(json.error)
         }
 
-        return json
+        return json.body
       } else {
         throw new Error(response.statusText)
       }
@@ -107,10 +112,10 @@ export default function AuthProvider({ children }: IAuthProviderProps) {
   }
 
   function getRefreshToken(): string | null {
-    const token = localStorage.getItem("token")
-    if (token) {
-      const { refreshToken } = JSON.parse(token)
-      return refreshToken
+    const tokenData = localStorage.getItem("token")
+    if (tokenData) {
+      const token = JSON.parse(tokenData)
+      return token
     }
     return null
   }
@@ -122,8 +127,12 @@ export default function AuthProvider({ children }: IAuthProviderProps) {
       userData.body.refreshToken)
   }
 
+  function getUser() {
+    return user
+  }
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, getAccessToken, saveUser, getRefreshToken }}>
+    <AuthContext.Provider value={{ isAuthenticated, getAccessToken, saveUser, getRefreshToken, getUser }}>
       {children}
     </AuthContext.Provider>
   )
