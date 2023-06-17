@@ -3,12 +3,18 @@ import Todo from "../schema/todo.js";
 
 const router = Router()
 
-router.get("/", (req, res) => {
-  res.json([{
-    id: 1,
-    title: "Hernán",
-    completed: false
-  }])
+router.get("/", async (req, res) => {
+  try {
+    const todos = await Todo.find({ idUser: req.user.id })
+    if (todos) {
+
+      res.json(todos)
+    } else {
+      res.status(404).json({ error: "No todos found" })
+    }
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 

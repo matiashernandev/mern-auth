@@ -10,5 +10,7 @@ export function verifyAccessToken(token) {
 
 export function verifyRefreshToken(token) {
   const decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+
+  //console.log(decoded)
   return decoded;
 }

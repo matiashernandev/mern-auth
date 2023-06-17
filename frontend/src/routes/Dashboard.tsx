@@ -8,9 +8,10 @@ import { useAuth } from "../auth/AuthProvider"
 import { API_URL } from "../auth/constants"
 
 interface Todos {
-  id: string
+  _id: string
   title: string
   completed: boolean
+  idUser: string
 }
 
 export default function Dashboard() {
@@ -81,7 +82,7 @@ export default function Dashboard() {
       </form>
 
       {todos.map((todo) => (
-        <div key={todo.id} >{todo.title}</div>
+        <div key={todo._id} >{todo.title}</div>
       ))}
 
     </div>
