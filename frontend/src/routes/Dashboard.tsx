@@ -6,6 +6,7 @@
 import { useEffect, useState } from "react"
 import { useAuth } from "../auth/AuthProvider"
 import { API_URL } from "../auth/constants"
+import PortalLayout from "../layout/PortalLayout"
 
 interface Todos {
   _id: string
@@ -74,8 +75,8 @@ export default function Dashboard() {
   }, [])
 
   return (
-    <div>
-      <div>Dashboard {auth.getUser()?.name ?? ""}</div>
+    <PortalLayout>
+      <h1>Dashboard {auth.getUser()?.name ?? ""}</h1>
 
       <form onSubmit={handleSubmit} >
         <input type="text" placeholder="placeholder" onChange={(e) => setTitle(e.target.value)} value={title} />
@@ -85,6 +86,6 @@ export default function Dashboard() {
         <div key={todo._id} >{todo.title}</div>
       ))}
 
-    </div>
+    </PortalLayout>
   )
 }

@@ -4,7 +4,7 @@ import { config } from 'dotenv'
 config()
 
 function sign(payload, isAccessToken) {
-  console.log("payload", payload);
+
   return jwt.sign(
     payload,
     isAccessToken

@@ -26,7 +26,7 @@ router.post("/", async function (req, res) {
 
     const payload = verifyRefreshToken(tokenDocument.token);
     const accessToken = generateAccessToken(getUserInfo(payload.user));
-    //console.log("acaaaaaaaaaa" + accessToken)
+
     res.status(200).json(accessToken);
   } catch (error) {
     return res.status(403).json({ error: "Token de actualización inválido FFFF" });
