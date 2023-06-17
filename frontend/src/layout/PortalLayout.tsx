@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Link } from "react-router-dom"
 import { type MouseEvent } from "react"
@@ -52,7 +54,7 @@ export default function PortalLayout({ children }: PortalLayoutProps) {
         </nav>
       </header>
 
-      <main>{children}</main>
+      <main className="dashboard">{children}</main>
     </>
   )
 }
