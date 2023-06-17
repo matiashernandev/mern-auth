@@ -32,9 +32,9 @@ export default function AuthProvider({ children }: IAuthProviderProps) {
 
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${refreshToken}`
-        }
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ refreshToken })
 
       })
       if (response.ok) {
